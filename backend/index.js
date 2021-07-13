@@ -27,7 +27,7 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//READ: Used to select data
+//READ: Used to query data
 app.get("/api/get", (req, res) => {
   const sqlSelect = "select * from filter_order limit 20";
   db.query(sqlSelect, (err, result) => {
@@ -40,15 +40,32 @@ app.get("/api/get", (req, res) => {
 app.post("/api/insert", (req, res) => {
   const OrderID = req.body.OrderID;
   const CustomerID = req.body.CustomerID;
+  const ProductID = req.body.productID;
+  const ProductName = req.body.productName;
+  const ShipDate = req.body.shipDate;
+  const Description = req.body.description;
 
-  console.log(`Insert data`, OrderID, CustomerID);
+  console.log(
+    `Insert data`,
+    req.body
+    // OrderID,
+    // CustomerID,
+    // ProductID,
+    // ProductName,
+    // ShipDate,
+    // Description
+  );
 
   const sqlInsert =
-    "INSERT INTO filter_order(order_id, customer_id) VALUES(?,?);";
-  db.query(sqlInsert, [OrderID, CustomerID], (err, result) => {
-    console.log(`error:`, err);
-    console.log(`result`, result);
-  });
+    "INSERT INTO filter_order(order_id, customer_id, product_id, product_name, ship_date, description) VALUES(?,?,?,?,?,?);";
+  db.query(
+    sqlInsert,
+    [OrderID, CustomerID, ProductID, ProductName, ShipDate, Description],
+    (err, result) => {
+      console.log(`error:`, err);
+      console.log(`result`, result);
+    }
+  );
 });
 //used to delte
 app.delete("/api/delete/:deleteID", (req, res) => {

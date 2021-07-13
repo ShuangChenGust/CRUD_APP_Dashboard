@@ -18,8 +18,12 @@
 .data_list {
   border: 2px solid black;
 }
+.insertContainer {
+  border: 2px solid black;
+  height: 660px;
+}
 
 #updateInput {
-  width: 100px;
-  height: 50px;
+  width: 400px;
+  height: 30px;
 }
