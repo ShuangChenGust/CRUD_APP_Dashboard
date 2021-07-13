@@ -1,0 +1,25 @@
+.App {
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form input {
+  width: 200px;
+  height: 40px;
+  margin: 10px;
+  font-size: 30px;
+}
+.data_list {
+  border: 2px solid black;
+}
+
+#updateInput {
+  width: 100px;
+  height: 50px;
+}
