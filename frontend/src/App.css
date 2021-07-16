@@ -20,10 +20,14 @@
 }
 .insertContainer {
   border: 2px solid black;
-  height: 660px;
+  height: 650px;
 }
 
 #updateInput {
   width: 400px;
   height: 30px;
+}
+#loadmore {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

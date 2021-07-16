@@ -18,10 +18,13 @@ function App() {
 
   const [orderData, setOrderData] = useState([]);
   const [newDescription, setNewDescription] = useState("");
+  //set the page number:
+  const [page, setPage] = useState(5);
+
   //used to display read result
   useEffect(() => {
     Axios.get("http://localhost:3001/api/get").then((response) => {
-      //console.log(response.data);
+      console.log(response.data);
       setOrderData(response.data);
     });
   }, []);
@@ -61,6 +64,10 @@ function App() {
       description: newDescription,
     });
     setNewDescription("");
+  };
+
+  const loadMore = () => {
+    setPage((page) => page + 5);
   };
 
   return (
@@ -128,7 +135,6 @@ function App() {
                       setDescription(e.target.value);
                     }}
                   ></input>
-
                   <button onClick={submit}>Insert</button>
                 </div>
               </div>
@@ -137,11 +143,11 @@ function App() {
             <Col>
               <div className="data_list">
                 <h1>Update/ Delete in Database</h1>
-                {orderData.slice(0, 10).map((val) => {
+                {orderData.slice(0, page).map((val) => {
                   return (
                     <div>
                       <li key={val.ORDER_ID}>
-                        OrderId: {val.ORDER_ID} | CUSTOMERID:{val.CUSTOMER_ID} |
+                        OrderId: {val.ORDER_ID}{" "}
                         <button
                           style={{ backgroundColor: "red" }}
                           onClick={() => {
@@ -150,11 +156,15 @@ function App() {
                         >
                           Delete
                         </button>
+                        <br></br> Product description:
+                        <br></br>
+                        {val.DESCRIPTION}
+                        <br></br>
                       </li>
                       <input
                         type="text"
                         id="updateInput"
-                        value="-- change description here --"
+                        placeholder="-- change description here --"
                         onChange={(e) => {
                           setNewDescription(e.target.value);
                         }}
@@ -164,6 +174,8 @@ function App() {
                           {
                             updateDescription(val.ORDER_ID);
                           }
+                          alert("The description has been updated");
+                          window.location.reload();
                         }}
                       >
                         Update
@@ -171,6 +183,14 @@ function App() {
                     </div>
                   );
                 })}
+                <button
+                  onClick={loadMore}
+                  style={{ backgroundColor: "lightblue" }}
+                  className="btn-grad"
+                  id="loadmore"
+                >
+                  Load More
+                </button>
               </div>
             </Col>
           </Row>
